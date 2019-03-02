@@ -26,6 +26,7 @@ Joshua Windsor
 #include <conio.h>			//for kbhit
 #include "hr_time.h"		//for stopwatches
 #include <stdio.h>			//for fputs
+#include <omp.h>
 
 using namespace std;
 
@@ -36,8 +37,9 @@ using namespace std;
 #define SortedRows "SortedRows.txt"
 #define SortedAll  "SortedAll.txt"		// for future use
 
-
 int _data [MAX_ROWS][MAX_COLS];		// 2000 rows of 1000 numbers to sort!
+int _temp [MAX_COLS];
+
 const int rseed = 123;				// arbitrary seed for random number generator - PLEASE DON'T ALTER
 									// After sorting data generated with seed 123 these results should be true:
 const int	checkBeg = 87,			// at [0][0]
@@ -51,6 +53,8 @@ void sortEachRow(void);
 void displayCheckData(void);
 void outputTimes(void);
 void outputDataAsString(void);
+void merge(int array[], int low, int mid, int high);
+void mergesort(int array[], int low, int high);
 
 
 int main(void)
@@ -77,8 +81,12 @@ void getData()		// Generate the same sequence of 'random' numbers.
 {
 	srand(123); //random number seed PLEASE DON'T CHANGE!
 	for (int i = 0; i<MAX_ROWS; i++)
-		for (int j = 0; j<MAX_COLS; j++)
+	{
+		for (int j = 0; j < MAX_COLS; j++)
+		{
 			_data[i][j] = rand(); //RAND_MAX = 32767
+		}
+	}
 }
 
 
@@ -86,20 +94,22 @@ void getData()		// Generate the same sequence of 'random' numbers.
 void sortEachRow()
 {
 	cout << "Sorting data...";
+	//
 	for(int i=0; i<MAX_ROWS; i++)
 	{	
+		mergesort(_data[i], 0, MAX_COLS - 1);
 		//Use a bubble sort on a row 
-		for(int n=MAX_COLS-1; n>=0; n--)
-		{   for(int j=0; j<n; j++)
-			{
-				if(_data[i][j] > _data[i][j+1])
-				{
-					int temp = _data[i][j];
-					_data[i][j] = _data[i][j+1];
-					_data[i][j+1] = temp;
-				}
-			}
-		}
+		//for(int n=MAX_COLS-1; n>=0; n--)
+		//{   for(int j=0; j<n; j++)
+		//	{
+		//		if(_data[i][j] > _data[i][j+1])
+		//		{
+		//			int temp = _data[i][j];
+		//			_data[i][j] = _data[i][j+1];
+		//			_data[i][j+1] = temp;
+		//		}
+		//	}
+		//}
 	}
 }
 
@@ -119,7 +129,7 @@ void displayCheckData()
 void outputTimes()
 {
 	ofstream os;
-	os.open("SortedTimes.txt", ios::app);
+	os.open("StoredTimes.txt", ios::app);
 	os << "\nTime for sorting all rows   (s) : " << s1.getElapsedTime();
 	os << "\nTime for outputting to file (s) : " << s2.getElapsedTime();
 	os << "\nCombined time               (s) : " << s1.getElapsedTime() + s2.getElapsedTime() << "\n\n-----------------------------";
@@ -155,4 +165,69 @@ void outputDataAsString()
 	fputs(odata.c_str(), sodata);
 	fclose(sodata);
 }
-//*********************************************************************************
+
+//Ref: https://www.comrevo.com/2016/02/openmp-program-for-merge-sort.html
+//TODO: SIMD
+
+inline void merge(int array[], int low, int mid, int high)
+{
+	int i, j, k, m;
+	j = low;
+	m = mid + 1;
+	for (i = low; j <= mid && m <= high; i++)
+	{
+		if (array[j] <= array[m])
+		{
+			_temp[i] = array[j];
+			j++;
+		}
+		else
+		{
+			_temp[i] = array[m];
+			m++;
+		}
+	}
+	if (j > mid)
+	{
+		for (k = m; k <= high; k++)
+		{
+			_temp[i] = array[k];
+			i++;
+		}
+	}
+	else
+	{
+		for (k = j; k <= mid; k++)
+		{
+			_temp[i] = array[k];
+			i++;
+		}
+	}
+	for (k = low; k <= high; k++)
+	{
+		array[k] = _temp[k];
+	}
+}
+
+
+inline void mergesort(int array[], int low, int high)
+{
+	if (low < high)
+	{
+		const int mid = (low + high) / 2;
+
+		#pragma omp parallel sections num_threads(2)
+		{
+			#pragma omp section
+			{
+				mergesort(array, low, mid);
+			}
+
+			#pragma omp section
+			{
+				mergesort(array, mid + 1, high);
+			}
+		}
+		merge(array, low, mid, high);
+	}
+}
