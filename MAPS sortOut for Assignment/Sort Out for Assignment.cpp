@@ -17,8 +17,8 @@ S.Andrews / A.Oram
 Revised: A.Oram Feb 2018
 ************************************************************************
 PLEASE ADD YOUR NAME AND STUDENT NUMBER HERE:
-
-
+Joshua Windsor 
+24008182
 ************************************************************************/
 
 #include <fstream>			//for file output
@@ -49,7 +49,6 @@ CStopWatch s1, s2;
 void getData(void);
 void sortEachRow(void);
 void displayCheckData(void);
-void outputDataAsString(void);
 void outputTimes(void);
 void outputDataAsString(void);
 
@@ -93,13 +92,13 @@ void sortEachRow()
 		for(int n=MAX_COLS-1; n>=0; n--)
 		{   for(int j=0; j<n; j++)
 			{
-                if(_data[i][j] > _data[i][j+1])
+				if(_data[i][j] > _data[i][j+1])
 				{
-                    int temp = _data[i][j];
-                    _data[i][j] = _data[i][j+1];
-                    _data[i][j+1] = temp;
-                }
-            }
+					int temp = _data[i][j];
+					_data[i][j] = _data[i][j+1];
+					_data[i][j+1] = temp;
+				}
+			}
 		}
 	}
 }
@@ -119,6 +118,14 @@ void displayCheckData()
 //*********************************************************************************
 void outputTimes()
 {
+	ofstream os;
+	os.open("SortedTimes.txt", ios::app);
+	os << "\nTime for sorting all rows   (s) : " << s1.getElapsedTime();
+	os << "\nTime for outputting to file (s) : " << s2.getElapsedTime();
+	os << "\nCombined time               (s) : " << s1.getElapsedTime() + s2.getElapsedTime() << "\n\n-----------------------------";
+	os.close();
+
+
 	cout << "\n\nTime for sorting all rows   (s) : " << s1.getElapsedTime();
 	cout << "\nTime for outputting to file (s) : " << s2.getElapsedTime();
 	cout << "\nCombined time               (s) : " << s1.getElapsedTime() + s2.getElapsedTime() << "\n\n\nPress a key to terminate.";

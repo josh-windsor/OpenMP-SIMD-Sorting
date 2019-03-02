@@ -1,0 +1,7 @@
+
+
+Time for sorting all rows   (s) : 1.46393
+Time for outputting to file (s) : 0.166408
+Combined time               (s) : 1.63034
+
+-----------------------------

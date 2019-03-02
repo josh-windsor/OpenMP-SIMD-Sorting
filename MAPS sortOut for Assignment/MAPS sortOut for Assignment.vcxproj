@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="SortedRows.txt" />
+    <Text Include="StoredTimes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
