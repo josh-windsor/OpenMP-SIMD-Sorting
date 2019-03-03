@@ -141,7 +141,6 @@ void outputDataAsString()
 	char numString[MAX_CHARS * 8];
 	string odata;
 
-	#pragma omp parallel for reduction(+:odata)
 	for (int i = 0; i<MAX_ROWS; i++){
 		for (int j = 0; j<MAX_COLS; j+=8){
 			ItoA_SIMD(&_data[i][j], numString);
