@@ -41,6 +41,7 @@ using namespace std;
 #define SortedRows "SortedRows.txt"
 #define SortedAll  "SortedAll.txt"
 
+
 int _data [MAX_ROWS][MAX_COLS];		// 2000 rows of 1000 numbers to sort!
 int _overflow = MAX_COLS - 8;		// overflow value for 1000/16
 int _allData [MAX_ROWS][MAX_COLS];	// flat version of _data for outputting
@@ -53,24 +54,26 @@ const int	checkBeg = 87,			// at [0][0]
 
 CStopWatch s1, s2, s3, s4;
 
-void getData(void);
-void sortEachRow(void);
-void displayCheckData(void);
-void sortAll(void);
-void outputTimes(void);
-void outputDataAsString(int outputData[][MAX_COLS], string file);
+inline void getData(void);
+inline void sortEachRow(void);
+inline void displayCheckData(void);
+inline void sortAll(void);
+inline void outputTimes(void);
+inline void outputDataAsString(int iOutputData[][MAX_COLS], string iFilename);
 inline void mergeSort(int iArray[], int iBeginning, int iEnd);
 inline void SIMDitoa16(int * iArray, char * oNumString);
 inline void SIMDitoa8 (int * iArray, char * oNumString);
-inline void radixSort(int arr[]);
-inline void radixSortAll(int arr[][MAX_COLS]);
+inline void radixSort(int iArray[]);
+inline void radixSortAll(int iArray[][MAX_COLS]);
 
-
+//*********************************************************************************
 int main(void)
 {
 	getData();
-
-	cout << "Sorting data...";
+	omp_set_dynamic(1);
+	cout << "\n\nThreads: " << omp_get_thread_num();
+	cout << "\n\nDynamic: " << omp_get_dynamic();
+	cout << "\n\nSorting data...";
 	s1.startTimer();
 	sortEachRow();
 	s1.stopTimer();
@@ -96,12 +99,12 @@ int main(void)
 }
 
 //*********************************************************************************
-void getData()		// Generate the same sequence of 'random' numbers.
+inline void getData()		// Generate the same sequence of 'random' numbers.
 {
 	srand(123); //random number seed PLEASE DON'T CHANGE!
-	for (int i = 0; i<MAX_ROWS; i++)
+	for (int i = 0; i<MAX_ROWS; ++i)
 	{
-		for (int j = 0; j < MAX_COLS; j++)
+		for (int j = 0; j < MAX_COLS; ++j)
 		{
 			_data[i][j] = rand(); //RAND_MAX = 32767
 		}
@@ -110,18 +113,19 @@ void getData()		// Generate the same sequence of 'random' numbers.
 
 
 //*********************************************************************************
-void sortEachRow()
+inline void sortEachRow()
 {
 	//basic parallel for to speed up individual rows
 	#pragma omp parallel for
-	for (int i = 0; i < MAX_ROWS; i++)
+	for (int i = 0; i < MAX_ROWS; ++i)
 	{
 		radixSort(_data[i]);
 	}
 
 }
 
-void sortAll()
+//*********************************************************************************
+inline void sortAll()
 {
 	//runs a full radix without omp as it applies to the entire array
 	radixSortAll(_data);
@@ -129,7 +133,7 @@ void sortAll()
 
 
 //*********************************************************************************
-void displayCheckData()
+inline void displayCheckData()
 {
 	cout << "\n\ndata[0][0]                   = " << _data[0][0] << "\t" << (_data[0][0] == checkBeg ? "OK" : "BAD");
 	cout << "\ndata[MAX_ROWS/2][MAX_COLS/2] = " << _data[MAX_ROWS / 2][MAX_COLS / 2] << "\t" << (_data[MAX_ROWS / 2][MAX_COLS / 2] == checkMid ? "OK" : "BAD");
@@ -140,7 +144,7 @@ void displayCheckData()
 
 
 //*********************************************************************************
-void outputTimes()
+inline void outputTimes()
 {
 	//output times to a file
 	ofstream os;
@@ -163,8 +167,7 @@ void outputTimes()
 
 //*********************************************************************************
 //Builds a sorted number list as a long string then outputs the whole thing in one big fputs!
-
-void outputDataAsString(int outputData[][MAX_COLS], string file)
+inline void outputDataAsString(int iOutputData[][MAX_COLS], string iFilename)
 {
 	char numString[MAX_CHARS * 16];
 	string odata;
@@ -174,11 +177,11 @@ void outputDataAsString(int outputData[][MAX_COLS], string file)
 			//determines wether to do a 8 or 16 simd operation depending on how many left
 			if (j != _overflow)
 			{
-				SIMDitoa16(&outputData[i][j], numString);
+				SIMDitoa16(&iOutputData[i][j], numString);
 			}
 			else
 			{
-				SIMDitoa8(&outputData[i][j], numString);
+				SIMDitoa8(&iOutputData[i][j], numString);
 			}
 			//loops through all 16 nums
 			for (int k = 0; k < 16; ++k)
@@ -209,7 +212,7 @@ void outputDataAsString(int outputData[][MAX_COLS], string file)
 	}
 
 	FILE * sodata;
-	fopen_s(&sodata, file.c_str(), "w");
+	fopen_s(&sodata, iFilename.c_str(), "w");
 	fputs(odata.c_str(), sodata);
 	fclose(sodata);
 }
@@ -308,7 +311,7 @@ inline void SIMDitoa16(int *iArray, char * oNumString)
 	__m256i inputData = startingArray;
 	__m256i storedData;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 5; ++i)
 	{
 		//starts the 2 vars which will be iterated upon
 		outputData = inputData;
@@ -386,18 +389,17 @@ inline void SIMDitoa8(int *iArray, char * oNumString)
 	//declare some simd variables to use in the loop
 	__m128i startingArray = _mm_load_si128((__m128i*)intArray);
 	__m128i outputData;
-	__m128i magicNumber;
 	__m128i inputData = startingArray;
 	__m128i storedData;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 5; ++i)
 	{
 		//starts the 2 vars which will be iterated upon
 		outputData = inputData;
 		storedData = outputData;
 
 		//setup and multiply by the first magic number
-		magicNumber = _mm_set1_epi16(ASCII_MAGIC_1);
+		__m128i magicNumber = _mm_set1_epi16(ASCII_MAGIC_1);
 		outputData = _mm_mulhi_epi16(magicNumber, outputData);
 
 		//shift the data right
@@ -444,12 +446,15 @@ inline void SIMDitoa8(int *iArray, char * oNumString)
 #pragma endregion SIMDitoas
 
 #pragma region RowSorting
-// determines the highest number in the array
-int getMax(int iArray[])
+//*********************************************************************************
+//Ref: https://en.wikipedia.org/wiki/Radix_sort
+//based on Java implementation on Wikipedia
+inline int getMax(int iArray[])
 {
+	// determines the highest number in the array
 	int max = iArray[0];
-	#pragma omp parallel for
-	for (int i = 1; i < MAX_ROWS; i++)
+
+	for (int i = 1; i < MAX_ROWS; ++i)
 	{
 		if (iArray[i] > max)
 		{
@@ -459,63 +464,69 @@ int getMax(int iArray[])
 	return max;
 }
 
-// Does the main sort of the radix sort
-void countSort(int arr[], int exp)
+//*********************************************************************************
+// A function to do counting sort of iArray[] according to 
+// the digit represented by exp. (eg. 300 is represented by 100)
+inline void countSort(int iArray[], int iExp)
 {
-	int output[MAX_COLS], // output array
+	int output[MAX_COLS], 
 		i, 
 		count[10] = { 0 };
 
-	//fills up the buckets
-	for (i = 0; i < MAX_COLS; i++)
+	// Store count of occurrences in count[] 
+	for (i = 0; i < MAX_COLS; ++i)
 	{
-		count[(arr[i] / exp) % 10]++;
+		count[(iArray[i] / iExp) % 10]++;
 	}
 
-	// Change count[i] so that count[i] now contains actual
-	//  position of this digit in output[]
-	for (i = 1; i < 10; i++)
+	// Change count[i] so that count[i] now contains 
+	// actual position of this digit in output[] 
+	for (i = 1; i < 10; ++i)
 		count[i] += count[i - 1];
 
-	// Build the output array
-	for (i = MAX_COLS - 1; i >= 0; i--)
+	// Build the output array 
+	for (i = MAX_COLS - 1; i >= 0; --i)
 	{
-		output[count[(arr[i] / exp) % 10] - 1] = arr[i];
-		count[(arr[i] / exp) % 10]--;
+		output[count[(iArray[i] / iExp) % 10] - 1] = iArray[i];
+		count[(iArray[i] / iExp) % 10]--;
 	}
 
-	//Copy the output array to the initial array, to have sorted numbers
+	// Copy the output array to iArray[], so that iArray[] now 
+	// contains sorted numbers according to curent digit 
+	// Apply omp to speed up array transfer
 	#pragma omp parallel for
-	for (i = 0; i < MAX_COLS; i++)
+	for (i = 0; i < MAX_COLS; ++i)
 	{
-		arr[i] = output[i];
+		iArray[i] = output[i];
 	}
 }
 
+//*********************************************************************************
 // Radix Sort
-void radixSort(int arr[])
+inline void radixSort(int iArray[])
 {
 	// Find the maximum number to know number of digits
-	int m = getMax(arr);
+	int m = getMax(iArray);
 
 	// Do counting sort for every digit. Note that instead
 	// of passing digit number, exp is passed. exp is 10^i
 	// where i is current digit number
 	for (int exp = 1; m / exp > 0; exp *= 10)
-		countSort(arr, exp);
+		countSort(iArray, exp);
 }
 
 #pragma endregion RowSorting
 
 #pragma region AllSorting
+//*********************************************************************************
 // determines the highest number in the 2D array
-int getMaxAll(int iArray[][MAX_COLS])
+inline int getMaxAll(int iArray[][MAX_COLS])
 {
 	int max = iArray[0][0];
-	#pragma omp parallel for
-	for (int i = 0; i < MAX_ROWS; i++)
+
+	for (int i = 0; i < MAX_ROWS; ++i)
 	{
-		for (int j = 0; j < MAX_COLS; j++)
+		for (int j = 0; j < MAX_COLS; ++j)
 		{
 			if (iArray[i][j] > max)
 			{
@@ -526,122 +537,167 @@ int getMaxAll(int iArray[][MAX_COLS])
 	return max;
 }
 
+//*********************************************************************************
 // Does the main sort of the radix sort
-void countSortAll(int iArray[][MAX_COLS], int exp)
+inline void countSortAll(int iArray[][MAX_COLS], int iExp)
 {
-	int count[10] = { 0 };
+	int output[10] = { 0 };
 
-	//create 4 sets of buckets
+	//create 8 sets of buckets
 	int bucket1[10] = { 0 },
 		bucket2[10] = { 0 },
 		bucket3[10] = { 0 },
-		bucket4[10] = { 0 };
-
-	int sectionSize = MAX_ROWS / 4;
-
-	// Create 4 sections, and fill the 4 sets of buckets
+		bucket4[10] = { 0 },
+		bucket5[10] = { 0 },
+		bucket6[10] = { 0 },
+		bucket7[10] = { 0 },
+		bucket8[10] = { 0 };
+	
+	
+	int sectionSize = MAX_ROWS / 8;
+	// Create 8 sections, and fill the 8 sets of buckets for 8threads
 	#pragma omp parallel sections
 	{
 		#pragma omp section
 		{
-			for (int i = 0; i < sectionSize; i++)
+			for (int i = 0; i < sectionSize; ++i)
 			{
-				for (int j = 0; j < MAX_COLS; j++)
+				for (int j = 0; j < MAX_COLS; ++j)
 				{
-					bucket1[(iArray[i][j] / exp) % 10]++;
+					//store the occureces in the buckets
+					bucket1[(iArray[i][j] / iExp) % 10]++;
 				}
 			}
 		}
 
 		#pragma omp section
 		{
-			for (int i = sectionSize; i < sectionSize * 2; i++)
+			for (int i = sectionSize; i < sectionSize * 2; ++i)
 			{
-				for (int j = 0; j < MAX_COLS; j++)
+				for (int j = 0; j < MAX_COLS; ++j)
 				{
-					bucket2[(iArray[i][j] / exp) % 10]++;
+					bucket2[(iArray[i][j] / iExp) % 10]++;
 				}
 			}
 		}
 
 		#pragma omp section
 		{
-			for (int i = sectionSize * 2; i < sectionSize * 3; i++)
+			for (int i = sectionSize * 2; i < sectionSize * 3; ++i)
 			{
-				for (int j = 0; j < MAX_COLS; j++)
+				for (int j = 0; j < MAX_COLS; ++j)
 				{
-					bucket3[(iArray[i][j] / exp) % 10]++;
+					bucket3[(iArray[i][j] / iExp) % 10]++;
 				}
 			}
 		}
 
 		#pragma omp section
 		{
-			for (int i = sectionSize * 3; i < MAX_ROWS; i++)
+			for (int i = sectionSize * 3; i < sectionSize * 4; ++i)
 			{
-				for (int j = 0; j < MAX_COLS; j++)
+				for (int j = 0; j < MAX_COLS; ++j)
 				{
-					bucket4[(iArray[i][j] / exp) % 10]++;
+					bucket4[(iArray[i][j] / iExp) % 10]++;
+				}
+			}
+		}
+
+		#pragma omp section
+		{
+			for (int i = sectionSize * 4; i < sectionSize * 5; ++i)
+			{
+				for (int j = 0; j < MAX_COLS; ++j)
+				{
+					bucket5[(iArray[i][j] / iExp) % 10]++;
+				}
+			}
+		}
+
+		#pragma omp section
+		{
+			for (int i = sectionSize * 5; i < sectionSize * 6; ++i)
+			{
+				for (int j = 0; j < MAX_COLS; ++j)
+				{
+					bucket6[(iArray[i][j] / iExp) % 10]++;
+				}
+			}
+		}
+
+		#pragma omp section
+		{
+			for (int i = sectionSize * 6; i < sectionSize * 7; ++i)
+			{
+				for (int j = 0; j < MAX_COLS; ++j)
+				{
+					bucket7[(iArray[i][j] / iExp) % 10]++;
+				}
+			}
+		}
+
+		#pragma omp section
+		{
+			for (int i = sectionSize * 7; i < MAX_ROWS; ++i)
+			{
+				for (int j = 0; j < MAX_COLS; ++j)
+				{
+					bucket8[(iArray[i][j] / iExp) % 10]++;
 				}
 			}
 		}
 	}
 
 	//add the buckets together
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; ++i)
 	{
-		count[i] = bucket1[i] + bucket2[i] + bucket3[i] + bucket4[i];
+		output[i] = bucket1[i] + bucket2[i] + bucket3[i] + bucket4[i] + bucket5[i] + bucket6[i] + bucket7[i] + bucket8[i];
 	}
 
-	// Change count[i] so that count[i] now contains actual
+	// Change output[i] so that output[i] now contains actual
 	// position of this digit in output[]
-	for (int i = 1; i < 10; i++)
+	for (int i = 1; i < 10; ++i)
 	{
-		count[i] += count[i - 1];
+		output[i] += output[i - 1];
 	}
 
-	//***********************************
-	// Section 2 - No possible optimization due to array bring manpiulated
-	//***********************************
 	// Build the output array
-
-	for (int i = MAX_ROWS - 1; i >= 0; i--)
+	for (int i = MAX_ROWS - 1; i >= 0; --i)
 	{
-		for (int j = MAX_COLS - 1; j >= 0; j--)
+		for (int j = MAX_COLS - 1; j >= 0; --j)
 		{
-			int pos = count[(iArray[i][j] / exp) % 10] - 1;
+			int index = output[(iArray[i][j] / iExp) % 10] - 1;
 
-			_allData[pos / MAX_COLS][pos % MAX_COLS] = iArray[i][j];
-			count[(iArray[i][j] / exp) % 10]--;
+			_allData[index / MAX_COLS][index % MAX_COLS] = iArray[i][j];
+			output[(iArray[i][j] / iExp) % 10]--;
 		}
 	}
 
-	//***********************************
-	// Section 3 - simple OMP FOR to speed up copying of arrays
-	//***********************************
-	// Copy output array to initial array
+	// Copy the output array to iArray[], so that iArray[] now 
+	// contains sorted numbers according to curent digit 
 	#pragma omp parallel for
-	for (int i = 0; i < MAX_ROWS; i++)
+	for (int i = 0; i < MAX_ROWS; ++i)
 	{
-		for (int j = 0; j < MAX_COLS; j++)
+		for (int j = 0; j < MAX_COLS; ++j)
 		{
 			iArray[i][j] = _allData[i][j];
 		}
 	}
 }
 
-// Radix Sort Full
-void radixSortAll(int arr[][MAX_COLS])
+//*********************************************************************************
+// Radix Sort for all numbers
+inline void radixSortAll(int iArray[][MAX_COLS])
 {
 	// Find the maximum number to know number of digits
-	int m = getMaxAll(arr);
+	int m = getMaxAll(iArray);
 
 	// Do counting sort for every digit. Note that instead
 	// of passing digit number, exp is passed. exp is 10^i
 	// where i is current digit number
 	for (int exp = 1; m / exp > 0; exp *= 10)
 	{
-		countSortAll(arr, exp);
+		countSortAll(iArray, exp);
 	}
 }
 #pragma endregion AllSorting

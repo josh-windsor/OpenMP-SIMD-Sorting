@@ -714,3 +714,479 @@ Time for outputting to file (s) : 0.159896
 Combined time               (s) : 0.537017
 
 -----------------------------
+Time for sorting all rows   (s) : 0.0783456
+Time for outputting to file (s) : 0.193222
+Time for sorting everything (s) : 0.306112
+Time for outputting to file (s) : 0.232821
+Combined time               (s) : 0.810501
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0897633
+Time for outputting to file (s) : 0.23401
+Time for sorting everything (s) : 0.334306
+Time for outputting to file (s) : 0.248287
+Combined time               (s) : 0.906366
+
+-----------------------------
+Time for sorting all rows   (s) : 0.108255
+Time for outputting to file (s) : 0.218117
+Time for sorting everything (s) : 0.300955
+Time for outputting to file (s) : 0.241249
+Combined time               (s) : 0.868576
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0883021
+Time for outputting to file (s) : 0.266311
+Time for sorting everything (s) : 0.283135
+Time for outputting to file (s) : 0.263313
+Combined time               (s) : 0.901062
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0819317
+Time for outputting to file (s) : 0.249222
+Time for sorting everything (s) : 0.293402
+Time for outputting to file (s) : 0.236391
+Combined time               (s) : 0.860947
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0958811
+Time for outputting to file (s) : 0.218292
+Time for sorting everything (s) : 0.277608
+Time for outputting to file (s) : 0.216619
+Combined time               (s) : 0.8084
+
+-----------------------------
+Time for sorting all rows   (s) : 0.109104
+Time for outputting to file (s) : 0.240424
+Time for sorting everything (s) : 0.263871
+Time for outputting to file (s) : 0.236806
+Combined time               (s) : 0.850204
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0784289
+Time for outputting to file (s) : 0.182279
+Time for sorting everything (s) : 0.251104
+Time for outputting to file (s) : 0.248172
+Combined time               (s) : 0.759984
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0865271
+Time for outputting to file (s) : 0.237799
+Time for sorting everything (s) : 0.321382
+Time for outputting to file (s) : 0.230688
+Combined time               (s) : 0.876397
+
+-----------------------------
+Time for sorting all rows   (s) : 0.150919
+Time for outputting to file (s) : 0.235974
+Time for sorting everything (s) : 0.370182
+Time for outputting to file (s) : 0.219839
+Combined time               (s) : 0.976913
+
+-----------------------------
+Time for sorting all rows   (s) : 0.100741
+Time for outputting to file (s) : 0.207739
+Time for sorting everything (s) : 0.265965
+Time for outputting to file (s) : 0.225587
+Combined time               (s) : 0.800033
+
+-----------------------------
+Time for sorting all rows   (s) : 0.105322
+Time for outputting to file (s) : 0.197539
+Time for sorting everything (s) : 0.283189
+Time for outputting to file (s) : 0.233662
+Combined time               (s) : 0.819712
+
+-----------------------------
+Time for sorting all rows   (s) : 0.11759
+Time for outputting to file (s) : 0.220794
+Time for sorting everything (s) : 0.267619
+Time for outputting to file (s) : 0.244517
+Combined time               (s) : 0.850519
+
+-----------------------------
+Time for sorting all rows   (s) : 0.116432
+Time for outputting to file (s) : 0.210826
+Time for sorting everything (s) : 0.308797
+Time for outputting to file (s) : 0.238793
+Combined time               (s) : 0.874848
+
+-----------------------------
+Time for sorting all rows   (s) : 0.105841
+Time for outputting to file (s) : 0.259593
+Time for sorting everything (s) : 0.278685
+Time for outputting to file (s) : 0.269087
+Combined time               (s) : 0.913205
+
+-----------------------------
+Time for sorting all rows   (s) : 0.116167
+Time for outputting to file (s) : 0.250608
+Time for sorting everything (s) : 0.347584
+Time for outputting to file (s) : 0.262538
+Combined time               (s) : 0.976896
+
+-----------------------------
+Time for sorting all rows   (s) : 0.102434
+Time for outputting to file (s) : 0.251944
+Time for sorting everything (s) : 0.249186
+Time for outputting to file (s) : 0.244617
+Combined time               (s) : 0.848181
+
+-----------------------------
+Time for sorting all rows   (s) : 0.104739
+Time for outputting to file (s) : 0.219557
+Time for sorting everything (s) : 0.272537
+Time for outputting to file (s) : 0.254032
+Combined time               (s) : 0.850864
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0907377
+Time for outputting to file (s) : 0.268727
+Time for sorting everything (s) : 0.273677
+Time for outputting to file (s) : 0.250302
+Combined time               (s) : 0.883443
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0790435
+Time for outputting to file (s) : 0.237679
+Time for sorting everything (s) : 0.250389
+Time for outputting to file (s) : 0.244369
+Combined time               (s) : 0.811481
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0822768
+Time for outputting to file (s) : 0.218519
+Time for sorting everything (s) : 0.257796
+Time for outputting to file (s) : 0.234303
+Combined time               (s) : 0.792896
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0964375
+Time for outputting to file (s) : 0.232595
+Time for sorting everything (s) : 0.327776
+Time for outputting to file (s) : 0.260371
+Combined time               (s) : 0.917179
+
+-----------------------------
+Time for sorting all rows   (s) : 0.114146
+Time for outputting to file (s) : 0.219652
+Time for sorting everything (s) : 0.221064
+Time for outputting to file (s) : 0.233143
+Combined time               (s) : 0.788005
+
+-----------------------------
+Time for sorting all rows   (s) : 0.172698
+Time for outputting to file (s) : 0.180499
+Time for sorting everything (s) : 0.19246
+Time for outputting to file (s) : 0.2276
+Combined time               (s) : 0.773258
+
+-----------------------------
+Time for sorting all rows   (s) : 0.112678
+Time for outputting to file (s) : 0.245326
+Time for sorting everything (s) : 0.252318
+Time for outputting to file (s) : 0.227373
+Combined time               (s) : 0.837695
+
+-----------------------------
+Time for sorting all rows   (s) : 0.102525
+Time for outputting to file (s) : 0.191354
+Time for sorting everything (s) : 0.275505
+Time for outputting to file (s) : 0.230396
+Combined time               (s) : 0.799779
+
+-----------------------------
+Time for sorting all rows   (s) : 0.327065
+Time for outputting to file (s) : 0.257352
+Time for sorting everything (s) : 0.22294
+Time for outputting to file (s) : 0.229915
+Combined time               (s) : 1.03727
+
+-----------------------------
+Time for sorting all rows   (s) : 0.415288
+Time for outputting to file (s) : 0.212613
+Time for sorting everything (s) : 0.225894
+Time for outputting to file (s) : 0.204886
+Combined time               (s) : 1.05868
+
+-----------------------------
+Time for sorting all rows   (s) : 0.12824
+Time for outputting to file (s) : 0.315148
+Time for sorting everything (s) : 0.274657
+Time for outputting to file (s) : 0.239666
+Combined time               (s) : 0.957711
+
+-----------------------------
+Time for sorting all rows   (s) : 0.130368
+Time for outputting to file (s) : 0.258873
+Time for sorting everything (s) : 0.265784
+Time for outputting to file (s) : 0.257534
+Combined time               (s) : 0.91256
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0881209
+Time for outputting to file (s) : 0.207533
+Time for sorting everything (s) : 0.264919
+Time for outputting to file (s) : 0.243031
+Combined time               (s) : 0.803604
+
+-----------------------------
+Time for sorting all rows   (s) : 0.113009
+Time for outputting to file (s) : 0.259383
+Time for sorting everything (s) : 0.297586
+Time for outputting to file (s) : 0.294942
+Combined time               (s) : 0.964921
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0858504
+Time for outputting to file (s) : 0.21411
+Time for sorting everything (s) : 0.222225
+Time for outputting to file (s) : 0.241081
+Combined time               (s) : 0.763266
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0829139
+Time for outputting to file (s) : 0.232808
+Time for sorting everything (s) : 0.240271
+Time for outputting to file (s) : 0.229238
+Combined time               (s) : 0.785231
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0929429
+Time for outputting to file (s) : 0.218239
+Time for sorting everything (s) : 0.245258
+Time for outputting to file (s) : 0.228299
+Combined time               (s) : 0.784739
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0604816
+Time for outputting to file (s) : 0.10339
+Time for sorting everything (s) : 0.116736
+Time for outputting to file (s) : 0.101365
+Combined time               (s) : 0.381973
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0526986
+Time for outputting to file (s) : 0.103088
+Time for sorting everything (s) : 0.121384
+Time for outputting to file (s) : 0.10619
+Combined time               (s) : 0.38336
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0565244
+Time for outputting to file (s) : 0.103789
+Time for sorting everything (s) : 0.122088
+Time for outputting to file (s) : 0.118518
+Combined time               (s) : 0.40092
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0496623
+Time for outputting to file (s) : 0.116144
+Time for sorting everything (s) : 0.133979
+Time for outputting to file (s) : 0.111693
+Combined time               (s) : 0.411479
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0597853
+Time for outputting to file (s) : 0.116521
+Time for sorting everything (s) : 0.139214
+Time for outputting to file (s) : 0.115091
+Combined time               (s) : 0.430611
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0767772
+Time for outputting to file (s) : 0.0978708
+Time for sorting everything (s) : 0.110211
+Time for outputting to file (s) : 0.120081
+Combined time               (s) : 0.40494
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0451317
+Time for outputting to file (s) : 0.098228
+Time for sorting everything (s) : 0.124404
+Time for outputting to file (s) : 0.109544
+Combined time               (s) : 0.377307
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0456029
+Time for outputting to file (s) : 0.112546
+Time for sorting everything (s) : 0.133698
+Time for outputting to file (s) : 0.112172
+Combined time               (s) : 0.404018
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0580798
+Time for outputting to file (s) : 0.105993
+Time for sorting everything (s) : 0.126423
+Time for outputting to file (s) : 0.10794
+Combined time               (s) : 0.398436
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0394575
+Time for outputting to file (s) : 0.100259
+Time for sorting everything (s) : 0.129364
+Time for outputting to file (s) : 0.111508
+Combined time               (s) : 0.380589
+
+-----------------------------
+Time for sorting all rows   (s) : 0.050533
+Time for outputting to file (s) : 0.102129
+Time for sorting everything (s) : 0.13655
+Time for outputting to file (s) : 0.115055
+Combined time               (s) : 0.404267
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0425301
+Time for outputting to file (s) : 0.0998952
+Time for sorting everything (s) : 0.115249
+Time for outputting to file (s) : 0.112977
+Combined time               (s) : 0.370651
+
+-----------------------------
+Time for sorting all rows   (s) : 0.049673
+Time for outputting to file (s) : 0.113074
+Time for sorting everything (s) : 0.117851
+Time for outputting to file (s) : 0.10084
+Combined time               (s) : 0.381439
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0542856
+Time for outputting to file (s) : 0.0960334
+Time for sorting everything (s) : 0.108719
+Time for outputting to file (s) : 0.102885
+Combined time               (s) : 0.361923
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0474356
+Time for outputting to file (s) : 0.102147
+Time for sorting everything (s) : 0.11284
+Time for outputting to file (s) : 0.116599
+Combined time               (s) : 0.379021
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0365147
+Time for outputting to file (s) : 0.0982574
+Time for sorting everything (s) : 0.12997
+Time for outputting to file (s) : 0.125165
+Combined time               (s) : 0.389907
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0440555
+Time for outputting to file (s) : 0.108048
+Time for sorting everything (s) : 0.123311
+Time for outputting to file (s) : 0.119408
+Combined time               (s) : 0.394822
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0428143
+Time for outputting to file (s) : 0.10333
+Time for sorting everything (s) : 0.133802
+Time for outputting to file (s) : 0.108103
+Combined time               (s) : 0.388049
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0399819
+Time for outputting to file (s) : 0.0927561
+Time for sorting everything (s) : 0.103343
+Time for outputting to file (s) : 0.0958503
+Combined time               (s) : 0.331931
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0528355
+Time for outputting to file (s) : 0.0941193
+Time for sorting everything (s) : 0.0975509
+Time for outputting to file (s) : 0.109882
+Combined time               (s) : 0.354388
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0469996
+Time for outputting to file (s) : 0.0948695
+Time for sorting everything (s) : 0.108613
+Time for outputting to file (s) : 0.114302
+Combined time               (s) : 0.364783
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0436086
+Time for outputting to file (s) : 0.102424
+Time for sorting everything (s) : 0.124756
+Time for outputting to file (s) : 0.111316
+Combined time               (s) : 0.382105
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0514678
+Time for outputting to file (s) : 0.0983383
+Time for sorting everything (s) : 0.144201
+Time for outputting to file (s) : 0.108084
+Combined time               (s) : 0.402091
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0481694
+Time for outputting to file (s) : 0.10688
+Time for sorting everything (s) : 0.123448
+Time for outputting to file (s) : 0.13048
+Combined time               (s) : 0.408977
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0439314
+Time for outputting to file (s) : 0.0991159
+Time for sorting everything (s) : 0.15803
+Time for outputting to file (s) : 0.11371
+Combined time               (s) : 0.414787
+
+-----------------------------
+Time for sorting all rows   (s) : 0.042388
+Time for outputting to file (s) : 0.0970714
+Time for sorting everything (s) : 0.117071
+Time for outputting to file (s) : 0.10786
+Combined time               (s) : 0.364391
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0454075
+Time for outputting to file (s) : 0.0882326
+Time for sorting everything (s) : 0.118611
+Time for outputting to file (s) : 0.119001
+Combined time               (s) : 0.371252
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0824506
+Time for outputting to file (s) : 0.0983331
+Time for sorting everything (s) : 0.120268
+Time for outputting to file (s) : 0.0989808
+Combined time               (s) : 0.400033
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0479611
+Time for outputting to file (s) : 0.0945241
+Time for sorting everything (s) : 0.12563
+Time for outputting to file (s) : 0.113786
+Combined time               (s) : 0.381901
+
+-----------------------------
+Time for sorting all rows   (s) : 0.055324
+Time for outputting to file (s) : 0.0862216
+Time for sorting everything (s) : 0.109186
+Time for outputting to file (s) : 0.0968119
+Combined time               (s) : 0.347544
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0460202
+Time for outputting to file (s) : 0.0950341
+Time for sorting everything (s) : 0.134999
+Time for outputting to file (s) : 0.100868
+Combined time               (s) : 0.376921
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0456039
+Time for outputting to file (s) : 0.109677
+Time for sorting everything (s) : 0.140599
+Time for outputting to file (s) : 0.117337
+Combined time               (s) : 0.413217
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0490985
+Time for outputting to file (s) : 0.105595
+Time for sorting everything (s) : 0.123156
+Time for outputting to file (s) : 0.100003
+Combined time               (s) : 0.377852
+
+-----------------------------
