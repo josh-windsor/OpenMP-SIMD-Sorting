@@ -35,11 +35,15 @@ using namespace std;
 #define MAX_COLS 1000
 #define MAX_CHARS 6			// numbers are in the range 1- 32,767, so 6 digits is enough.
 
-#define ASCII_MAGIC_1 0x6667	//ASCII magic numbers
-#define ASCII_MAGIC_2 0x30
-
 #define SortedRows "SortedRows.txt"
 #define SortedAll  "SortedAll.txt"
+
+const __m256i ascii_magic_1_16 = _mm256_set1_epi16(0x6667);
+const __m256i ascii_magic_2_16 = _mm256_set1_epi16(0x30);
+const __m256i ten_16 = _mm256_set1_epi16(10);
+const __m128i ascii_magic_1_8 = _mm_set1_epi16(0x6667);
+const __m128i ascii_magic_2_8 = _mm_set1_epi16(0x30);
+const __m128i ten_8 = _mm_set1_epi16(10);
 
 
 int _data [MAX_ROWS][MAX_COLS];		// 2000 rows of 1000 numbers to sort!
@@ -54,17 +58,18 @@ const int	checkBeg = 87,			// at [0][0]
 
 CStopWatch s1, s2, s3, s4;
 
-inline void getData(void);
-inline void sortEachRow(void);
-inline void displayCheckData(void);
-inline void sortAll(void);
-inline void outputTimes(void);
-inline void outputDataAsString(int iOutputData[][MAX_COLS], string iFilename);
-inline void mergeSort(int iArray[], int iBeginning, int iEnd);
-inline void SIMDitoa16(int * iArray, char * oNumString);
-inline void SIMDitoa8 (int * iArray, char * oNumString);
-inline void radixSort(int iArray[]);
-inline void radixSortAll(int iArray[][MAX_COLS]);
+__forceinline void getData(void);
+__forceinline void sortEachRow(void);
+__forceinline void displayCheckData(void);
+__forceinline void sortAll(void);
+__forceinline void outputTimes(void);
+__forceinline void outputDataAsString(int iOutputData[][MAX_COLS], string iFilename);
+__forceinline void mergeSort(int iArray[], int iBeginning, int iEnd);
+__forceinline void SIMDitoa16(int * iArray, char * oNumString);
+__forceinline void SIMDitoa8 (int * iArray, char * oNumString);
+__forceinline void radixSort(int iArray[]);
+__forceinline void radixSortAll(int iArray[][MAX_COLS]);
+
 
 //*********************************************************************************
 int main(void)
@@ -99,7 +104,7 @@ int main(void)
 }
 
 //*********************************************************************************
-inline void getData()		// Generate the same sequence of 'random' numbers.
+__forceinline void getData()		// Generate the same sequence of 'random' numbers.
 {
 	srand(123); //random number seed PLEASE DON'T CHANGE!
 	for (int i = 0; i<MAX_ROWS; ++i)
@@ -111,9 +116,8 @@ inline void getData()		// Generate the same sequence of 'random' numbers.
 	}
 }
 
-
 //*********************************************************************************
-inline void sortEachRow()
+__forceinline void sortEachRow()
 {
 	//basic parallel for to speed up individual rows
 	#pragma omp parallel for
@@ -125,26 +129,22 @@ inline void sortEachRow()
 }
 
 //*********************************************************************************
-inline void sortAll()
+__forceinline void sortAll()
 {
 	//runs a full radix without omp as it applies to the entire array
 	radixSortAll(_data);
 }
 
-
 //*********************************************************************************
-inline void displayCheckData()
+__forceinline void displayCheckData()
 {
 	cout << "\n\ndata[0][0]                   = " << _data[0][0] << "\t" << (_data[0][0] == checkBeg ? "OK" : "BAD");
 	cout << "\ndata[MAX_ROWS/2][MAX_COLS/2] = " << _data[MAX_ROWS / 2][MAX_COLS / 2] << "\t" << (_data[MAX_ROWS / 2][MAX_COLS / 2] == checkMid ? "OK" : "BAD");
 	cout << "\ndata[MAX_ROWS-1][MAX_COLS-1] = " << _data[MAX_ROWS - 1][MAX_COLS - 1] << "\t" << (_data[MAX_ROWS - 1][MAX_COLS - 1] == checkEnd ? "OK" : "BAD");
 }
 
-
-
-
 //*********************************************************************************
-inline void outputTimes()
+__forceinline void outputTimes()
 {
 	//output times to a file
 	ofstream os;
@@ -164,10 +164,9 @@ inline void outputTimes()
 	cout << "\nCombined time               (s) : " << s1.getElapsedTime() + s2.getElapsedTime() + s3.getElapsedTime() + s4.getElapsedTime() << "\n\n\nPress a key to terminate.";
 }
 
-
 //*********************************************************************************
 //Builds a sorted number list as a long string then outputs the whole thing in one big fputs!
-inline void outputDataAsString(int iOutputData[][MAX_COLS], string iFilename)
+__forceinline void outputDataAsString(int iOutputData[][MAX_COLS], string iFilename)
 {
 	char numString[MAX_CHARS * 16];
 	string odata;
@@ -218,10 +217,11 @@ inline void outputDataAsString(int iOutputData[][MAX_COLS], string iFilename)
 }
 
 #pragma region RemovedMergeSort
+//*********************************************************************************
 //Ref: https://www.comrevo.com/2016/02/openmp-program-for-merge-sort.html
 //Removed as it seems slower than a radix sort
 
-inline void merge(int iArray[], int iTemp[], int iBeginning, int iMiddle, int iEnd)
+__forceinline void merge(int iArray[], int iTemp[], int iBeginning, int iMiddle, int iEnd)
 {
 	int a,
 		b = iBeginning,
@@ -263,8 +263,8 @@ inline void merge(int iArray[], int iTemp[], int iBeginning, int iMiddle, int iE
 	}
 }
 
-
-inline void mergesort(int iArray[], int iBeginning, int iEnd)
+//*********************************************************************************
+__forceinline void mergesort(int iArray[], int iBeginning, int iEnd)
 {
 	if (iBeginning < iEnd)
 	{
@@ -286,7 +286,6 @@ inline void mergesort(int iArray[], int iBeginning, int iEnd)
 		int temp[MAX_COLS];
 		merge(iArray, temp, iBeginning, middle, iEnd);
 	}
-
 }
 
 #pragma endregion RemovedMergeSort
@@ -295,7 +294,7 @@ inline void mergesort(int iArray[], int iBeginning, int iEnd)
 
 //*********************************************************************************
 //Uses 256 bit SIMD registers to convert 16 numbers to ascii at a time
-inline void SIMDitoa16(int *iArray, char * oNumString)
+__forceinline void SIMDitoa16(int *iArray, char * oNumString)
 {
 	//setup a memory aligned array with the 16 input ints
 	_declspec(align(32)) short intArray[16] =
@@ -307,7 +306,6 @@ inline void SIMDitoa16(int *iArray, char * oNumString)
 	//declare some simd variables to use in the loop
 	__m256i startingArray = _mm256_load_si256((__m256i*)intArray);
 	__m256i outputData;
-	__m256i magicNumber;
 	__m256i inputData = startingArray;
 	__m256i storedData;
 
@@ -318,8 +316,7 @@ inline void SIMDitoa16(int *iArray, char * oNumString)
 		storedData = outputData;
 
 		//setup and multiply by the first magic number
-		magicNumber = _mm256_set1_epi16(ASCII_MAGIC_1);
-		outputData = _mm256_mulhi_epu16(magicNumber, outputData);
+		outputData = _mm256_mulhi_epu16(ascii_magic_1_16, outputData);
 
 		//shift the data right
 		outputData = _mm256_srai_epi16(outputData, 2);
@@ -328,16 +325,14 @@ inline void SIMDitoa16(int *iArray, char * oNumString)
 		inputData = outputData;
 
 		//setup and multiply by 10
-		magicNumber = _mm256_set1_epi16(10);
-		outputData = _mm256_mullo_epi16(magicNumber, outputData);
+		outputData = _mm256_mullo_epi16(ten_16, outputData);
 
 		//subtract the generated value from the original value
 		outputData = _mm256_sub_epi16(storedData, outputData);
 
 		//setup and add the second magic number to complete single
 		//digit to char conversion
-		magicNumber = _mm256_set1_epi16(ASCII_MAGIC_2);
-		outputData = _mm256_add_epi16(magicNumber, outputData);
+		outputData = _mm256_add_epi16(ascii_magic_2_16, outputData);
 
 		//sort letters into correct 16 output arrays
 		oNumString[4 - i] = outputData.m256i_i16[0];
@@ -380,7 +375,7 @@ inline void SIMDitoa16(int *iArray, char * oNumString)
 
 //*********************************************************************************
 //Uses 128 bit SIMD registers to convert 8 numbers to ascii at a time (Used to do overflow of 8 digits when 1000/16)
-inline void SIMDitoa8(int *iArray, char * oNumString)
+__forceinline void SIMDitoa8(int *iArray, char * oNumString)
 {
 	//setup a memory aligned array with the 8 input ints
 	_declspec(align(16)) short intArray[8] = {
@@ -399,8 +394,7 @@ inline void SIMDitoa8(int *iArray, char * oNumString)
 		storedData = outputData;
 
 		//setup and multiply by the first magic number
-		__m128i magicNumber = _mm_set1_epi16(ASCII_MAGIC_1);
-		outputData = _mm_mulhi_epi16(magicNumber, outputData);
+		outputData = _mm_mulhi_epi16(ascii_magic_1_8, outputData);
 
 		//shift the data right
 		outputData = _mm_srai_epi16(outputData, 2);
@@ -409,16 +403,14 @@ inline void SIMDitoa8(int *iArray, char * oNumString)
 		inputData = outputData;
 
 		//setup and multiply by 10
-		magicNumber = _mm_set1_epi16(10);
-		outputData = _mm_mullo_epi16(magicNumber, outputData);
+		outputData = _mm_mullo_epi16(ten_8, outputData);
 
 		//subtract the generated value from the original value
 		outputData = _mm_sub_epi16(storedData, outputData);
 
 		//setup and add the second magic number to complete single
 		//digit to char conversion
-		magicNumber = _mm_set1_epi16(ASCII_MAGIC_2);
-		outputData = _mm_add_epi16(magicNumber, outputData);
+		outputData = _mm_add_epi16(ascii_magic_2_8, outputData);
 
 		//sort letters into correct 8 output arrays
 		oNumString[4 - i] = outputData.m128i_i16[0];
@@ -449,7 +441,7 @@ inline void SIMDitoa8(int *iArray, char * oNumString)
 //*********************************************************************************
 //Ref: https://en.wikipedia.org/wiki/Radix_sort
 //based on Java implementation on Wikipedia
-inline int getMax(int iArray[])
+__forceinline int getMax(int iArray[])
 {
 	// determines the highest number in the array
 	int max = iArray[0];
@@ -467,7 +459,7 @@ inline int getMax(int iArray[])
 //*********************************************************************************
 // A function to do counting sort of iArray[] according to 
 // the digit represented by exp. (eg. 300 is represented by 100)
-inline void countSort(int iArray[], int iExp)
+__forceinline void countSort(int iArray[], int iExp)
 {
 	int output[MAX_COLS], 
 		i, 
@@ -503,7 +495,7 @@ inline void countSort(int iArray[], int iExp)
 
 //*********************************************************************************
 // Radix Sort
-inline void radixSort(int iArray[])
+__forceinline void radixSort(int iArray[])
 {
 	// Find the maximum number to know number of digits
 	int m = getMax(iArray);
@@ -512,7 +504,9 @@ inline void radixSort(int iArray[])
 	// of passing digit number, exp is passed. exp is 10^i
 	// where i is current digit number
 	for (int exp = 1; m / exp > 0; exp *= 10)
+	{
 		countSort(iArray, exp);
+	}
 }
 
 #pragma endregion RowSorting
@@ -520,7 +514,7 @@ inline void radixSort(int iArray[])
 #pragma region AllSorting
 //*********************************************************************************
 // determines the highest number in the 2D array
-inline int getMaxAll(int iArray[][MAX_COLS])
+__forceinline int getMaxAll(int iArray[][MAX_COLS])
 {
 	int max = iArray[0][0];
 
@@ -539,7 +533,7 @@ inline int getMaxAll(int iArray[][MAX_COLS])
 
 //*********************************************************************************
 // Does the main sort of the radix sort
-inline void countSortAll(int iArray[][MAX_COLS], int iExp)
+__forceinline void countSortAll(int iArray[][MAX_COLS], int iExp)
 {
 	int output[10] = { 0 };
 
@@ -687,7 +681,7 @@ inline void countSortAll(int iArray[][MAX_COLS], int iExp)
 
 //*********************************************************************************
 // Radix Sort for all numbers
-inline void radixSortAll(int iArray[][MAX_COLS])
+__forceinline void radixSortAll(int iArray[][MAX_COLS])
 {
 	// Find the maximum number to know number of digits
 	int m = getMaxAll(iArray);

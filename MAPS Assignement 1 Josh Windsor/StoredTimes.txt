@@ -62,3 +62,115 @@ Time for outputting to file (s) : 0.161945
 Combined time               (s) : 0.747449
 
 -----------------------------
+Time for sorting all rows   (s) : 0.0804896
+Time for outputting to file (s) : 0.207462
+Time for sorting everything (s) : 0.297459
+Time for outputting to file (s) : 0.204371
+Combined time               (s) : 0.789781
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0332843
+Time for outputting to file (s) : 0.0911567
+Time for sorting everything (s) : 0.128467
+Time for outputting to file (s) : 0.0830096
+Combined time               (s) : 0.335918
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0762196
+Time for outputting to file (s) : 0.109881
+Time for sorting everything (s) : 0.163749
+Time for outputting to file (s) : 0.0944371
+Combined time               (s) : 0.444287
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0835446
+Time for outputting to file (s) : 0.130502
+Time for sorting everything (s) : 0.166213
+Time for outputting to file (s) : 0.100453
+Combined time               (s) : 0.480713
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0525305
+Time for outputting to file (s) : 0.103888
+Time for sorting everything (s) : 0.158266
+Time for outputting to file (s) : 0.100885
+Combined time               (s) : 0.41557
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0505123
+Time for outputting to file (s) : 0.126762
+Time for sorting everything (s) : 0.164264
+Time for outputting to file (s) : 0.0997801
+Combined time               (s) : 0.441318
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0410361
+Time for outputting to file (s) : 0.11664
+Time for sorting everything (s) : 0.189564
+Time for outputting to file (s) : 0.145727
+Combined time               (s) : 0.492968
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0381503
+Time for outputting to file (s) : 0.0959404
+Time for sorting everything (s) : 0.15531
+Time for outputting to file (s) : 0.106942
+Combined time               (s) : 0.396343
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0596351
+Time for outputting to file (s) : 0.111366
+Time for sorting everything (s) : 0.183926
+Time for outputting to file (s) : 0.12336
+Combined time               (s) : 0.478287
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0384415
+Time for outputting to file (s) : 0.0911796
+Time for sorting everything (s) : 0.160475
+Time for outputting to file (s) : 0.102714
+Combined time               (s) : 0.39281
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0456638
+Time for outputting to file (s) : 0.101635
+Time for sorting everything (s) : 0.151704
+Time for outputting to file (s) : 0.109342
+Combined time               (s) : 0.408344
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0392544
+Time for outputting to file (s) : 0.0966445
+Time for sorting everything (s) : 0.185472
+Time for outputting to file (s) : 0.120433
+Combined time               (s) : 0.441803
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0567619
+Time for outputting to file (s) : 0.113
+Time for sorting everything (s) : 0.155116
+Time for outputting to file (s) : 0.100341
+Combined time               (s) : 0.425219
+
+-----------------------------
+Time for sorting all rows   (s) : 0.059792
+Time for outputting to file (s) : 0.119932
+Time for sorting everything (s) : 0.170977
+Time for outputting to file (s) : 0.0911323
+Combined time               (s) : 0.441834
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0475026
+Time for outputting to file (s) : 0.095112
+Time for sorting everything (s) : 0.158919
+Time for outputting to file (s) : 0.119574
+Combined time               (s) : 0.421107
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0510803
+Time for outputting to file (s) : 0.0994749
+Time for sorting everything (s) : 0.146086
+Time for outputting to file (s) : 0.108895
+Combined time               (s) : 0.405536
+
+-----------------------------
