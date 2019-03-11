@@ -1,0 +1,64 @@
+
+Time for sorting all rows   (s) : 0.202586
+Time for outputting to file (s) : 0.197205
+Time for sorting everything (s) : 0.269493
+Time for outputting to file (s) : 0.169037
+Combined time               (s) : 0.83832
+
+-----------------------------
+Time for sorting all rows   (s) : 0.230096
+Time for outputting to file (s) : 0.209422
+Time for sorting everything (s) : 0.299128
+Time for outputting to file (s) : 0.171994
+Combined time               (s) : 0.910639
+
+-----------------------------
+Time for sorting all rows   (s) : 0.245031
+Time for outputting to file (s) : 0.17752
+Time for sorting everything (s) : 0.321192
+Time for outputting to file (s) : 0.150584
+Combined time               (s) : 0.894327
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0811956
+Time for outputting to file (s) : 0.21528
+Time for sorting everything (s) : 0.366413
+Time for outputting to file (s) : 0.212465
+Combined time               (s) : 0.875354
+
+-----------------------------
+Time for sorting all rows   (s) : 0.107806
+Time for outputting to file (s) : 0.231016
+Time for sorting everything (s) : 0.372221
+Time for outputting to file (s) : 0.212725
+Combined time               (s) : 0.923767
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0730496
+Time for outputting to file (s) : 0.212229
+Time for sorting everything (s) : 0.30822
+Time for outputting to file (s) : 0.199267
+Combined time               (s) : 0.792765
+
+-----------------------------
+Time for sorting all rows   (s) : 0.168239
+Time for outputting to file (s) : 0.227217
+Time for sorting everything (s) : 0.322285
+Time for outputting to file (s) : 0.191192
+Combined time               (s) : 0.908934
+
+-----------------------------
+Time for sorting all rows   (s) : 0.0947486
+Time for outputting to file (s) : 0.231312
+Time for sorting everything (s) : 0.294119
+Time for outputting to file (s) : 0.190149
+Combined time               (s) : 0.810328
+
+-----------------------------
+Time for sorting all rows   (s) : 0.102987
+Time for outputting to file (s) : 0.208225
+Time for sorting everything (s) : 0.274292
+Time for outputting to file (s) : 0.161945
+Combined time               (s) : 0.747449
+
+-----------------------------
