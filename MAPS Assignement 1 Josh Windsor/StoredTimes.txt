@@ -216,3 +216,17 @@ Time for outputting to file (s) : 0.0751107
 Combined time               (s) : 0.399563
 
 -----------------------------
+Time for sorting all rows   (s) : 0.118634
+Time for outputting to file (s) : 0.0807657
+Time for sorting everything (s) : 0.115656
+Time for outputting to file (s) : 0.0722577
+Combined time               (s) : 0.387313
+
+-----------------------------
+Time for sorting all rows   (s) : 0.059489
+Time for outputting to file (s) : 0.106599
+Time for sorting everything (s) : 0.115293
+Time for outputting to file (s) : 0.0739566
+Combined time               (s) : 0.355338
+
+-----------------------------

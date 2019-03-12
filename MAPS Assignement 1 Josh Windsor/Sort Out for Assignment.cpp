@@ -77,7 +77,8 @@ int main(void)
 	remove(SortedRows);
 	remove(SortedAll);
 	getData();
-	omp_set_dynamic(1);
+	omp_set_dynamic(8);
+	//TODO: test nested & scheduling in code
 	cout << "\n\nThreads: " << omp_get_thread_num();
 	cout << "\n\nDynamic: " << omp_get_dynamic();
 	cout << "\n\nSorting data...";
