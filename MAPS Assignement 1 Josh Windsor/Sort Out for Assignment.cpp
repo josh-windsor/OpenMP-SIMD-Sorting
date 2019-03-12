@@ -184,6 +184,10 @@ __forceinline void outputDataAsString(int iOutputData[][MAX_COLS], string iFilen
 	char numString[MAX_CHARS * 16];
 	string odata;
 
+	//A parallel for could be implemeneted such as this to speed up 
+	//#pragma omp parallel for private(iOutputData, numString)
+	//Or even split into 8 sections similar to the radixSortAll 
+	//and combined at the end
 	for (int i = 0; i<MAX_ROWS; ++i){
 		for (int j = 0; j<MAX_COLS; j+=16){
 			//determines wether to do a 8 or 16 simd operation depending on how many left
