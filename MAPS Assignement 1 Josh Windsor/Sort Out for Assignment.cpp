@@ -315,7 +315,7 @@ __forceinline void SIMDitoa16(int *iArray, char * oNumString)
 		outputData = inputData;
 		storedData = outputData;
 
-		//setup and multiply by the first magic number
+		//multiply by the first magic number
 		outputData = _mm256_mulhi_epu16(ascii_magic_1_16, outputData);
 
 		//shift the data right
@@ -324,13 +324,13 @@ __forceinline void SIMDitoa16(int *iArray, char * oNumString)
 		//store these numbers for future iterations
 		inputData = outputData;
 
-		//setup and multiply by 10
+		//multiply by 10
 		outputData = _mm256_mullo_epi16(ten_16, outputData);
 
 		//subtract the generated value from the original value
 		outputData = _mm256_sub_epi16(storedData, outputData);
 
-		//setup and add the second magic number to complete single
+		//add the second magic number to complete single
 		//digit to char conversion
 		outputData = _mm256_add_epi16(ascii_magic_2_16, outputData);
 
@@ -393,7 +393,7 @@ __forceinline void SIMDitoa8(int *iArray, char * oNumString)
 		outputData = inputData;
 		storedData = outputData;
 
-		//setup and multiply by the first magic number
+		//multiply by the first magic number
 		outputData = _mm_mulhi_epi16(ascii_magic_1_8, outputData);
 
 		//shift the data right
@@ -402,13 +402,13 @@ __forceinline void SIMDitoa8(int *iArray, char * oNumString)
 		//store these numbers for future iterations
 		inputData = outputData;
 
-		//setup and multiply by 10
+		//multiply by 10
 		outputData = _mm_mullo_epi16(ten_8, outputData);
 
 		//subtract the generated value from the original value
 		outputData = _mm_sub_epi16(storedData, outputData);
 
-		//setup and add the second magic number to complete single
+		//add the second magic number to complete single
 		//digit to char conversion
 		outputData = _mm_add_epi16(ascii_magic_2_8, outputData);
 
@@ -643,6 +643,7 @@ __forceinline void countSortAll(int iArray[][MAX_COLS], int iExp)
 	}
 
 	//add the buckets together
+	//OpenMP showed slowdowns when applied here
 	for (int i = 0; i < 10; ++i)
 	{
 		output[i] = bucket1[i] + bucket2[i] + bucket3[i] + bucket4[i] + bucket5[i] + bucket6[i] + bucket7[i] + bucket8[i];
@@ -650,12 +651,14 @@ __forceinline void countSortAll(int iArray[][MAX_COLS], int iExp)
 
 	// Change output[i] so that output[i] now contains actual
 	// position of this digit in output[]
+	// OpenMP cannot be applied as array is being modified
 	for (int i = 1; i < 10; ++i)
 	{
 		output[i] += output[i - 1];
 	}
 
 	// Build the output array
+	// OpenMP cannot be applied as array is being modified
 	for (int i = MAX_ROWS - 1; i >= 0; --i)
 	{
 		for (int j = MAX_COLS - 1; j >= 0; --j)
