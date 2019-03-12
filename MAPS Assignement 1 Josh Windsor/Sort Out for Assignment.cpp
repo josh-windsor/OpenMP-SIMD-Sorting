@@ -74,6 +74,8 @@ __forceinline void radixSortAll(int iArray[][MAX_COLS]);
 //*********************************************************************************
 int main(void)
 {
+	remove(SortedRows);
+	remove(SortedAll);
 	getData();
 	omp_set_dynamic(1);
 	cout << "\n\nThreads: " << omp_get_thread_num();
@@ -90,10 +92,12 @@ int main(void)
 	outputDataAsString(_data, SortedRows);
 	s2.stopTimer();
 
+	cout << "\n\nSorting all...";
 	s3.startTimer();
 	sortAll();
 	s3.stopTimer();
 
+	cout << "\n\nOutputting data to " << SortedAll << "...";
 	s4.startTimer();
 	outputDataAsString(_allData, SortedAll);
 	s4.stopTimer();

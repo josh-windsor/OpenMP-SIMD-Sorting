@@ -174,3 +174,45 @@ Time for outputting to file (s) : 0.108895
 Combined time               (s) : 0.405536
 
 -----------------------------
+Time for sorting all rows   (s) : 0.100064
+Time for outputting to file (s) : 0.0666671
+Time for sorting everything (s) : 0.112393
+Time for outputting to file (s) : 0.0832341
+Combined time               (s) : 0.362359
+
+-----------------------------
+Time for sorting all rows   (s) : 0.117454
+Time for outputting to file (s) : 0.0799441
+Time for sorting everything (s) : 0.127441
+Time for outputting to file (s) : 0.106594
+Combined time               (s) : 0.431434
+
+-----------------------------
+Time for sorting all rows   (s) : 0.127154
+Time for outputting to file (s) : 0.106841
+Time for sorting everything (s) : 0.15995
+Time for outputting to file (s) : 0.0887426
+Combined time               (s) : 0.482688
+
+-----------------------------
+Time for sorting all rows   (s) : 0.144642
+Time for outputting to file (s) : 0.105007
+Time for sorting everything (s) : 0.131417
+Time for outputting to file (s) : 0.0944327
+Combined time               (s) : 0.475499
+
+-----------------------------
+Time for sorting all rows   (s) : 0.121655
+Time for outputting to file (s) : 0.0970314
+Time for sorting everything (s) : 0.15863
+Time for outputting to file (s) : 0.0881325
+Combined time               (s) : 0.465449
+
+-----------------------------
+Time for sorting all rows   (s) : 0.124079
+Time for outputting to file (s) : 0.0813878
+Time for sorting everything (s) : 0.118986
+Time for outputting to file (s) : 0.0751107
+Combined time               (s) : 0.399563
+
+-----------------------------
