@@ -74,14 +74,22 @@ __forceinline void radixSortAll(int iArray[][MAX_COLS]);
 //*********************************************************************************
 int main(void)
 {
+	//remove previous files due to lab issues
 	remove(SortedRows);
 	remove(SortedAll);
+
 	getData();
-	omp_set_dynamic(8);
-	//TODO: test nested & scheduling in code
-	cout << "\n\nThreads: " << omp_get_thread_num();
-	cout << "\n\nDynamic: " << omp_get_dynamic();
+
+	//speeds up processing 
+	omp_set_dynamic(1);
+	//seems to slow down when turned on (from 0.3 to 0.45)
+	omp_set_nested(0);
+
+	cout << "Threads: " << omp_get_thread_num();
+	cout << "\nDynamic: " << omp_get_dynamic();
+	cout << "\nNested: " << omp_get_nested();
 	cout << "\n\nSorting data...";
+
 	s1.startTimer();
 	sortEachRow();
 	s1.stopTimer();
@@ -339,7 +347,7 @@ __forceinline void SIMDitoa16(int *iArray, char * oNumString)
 		//digit to char conversion
 		outputData = _mm256_add_epi16(ascii_magic_2_16, outputData);
 
-		//sort letters into correct 16 output arrays
+		//sort letters into correct 16 output arrays backwards
 		oNumString[4 - i] = outputData.m256i_i16[0];
 		oNumString[10 - i] = outputData.m256i_i16[1];
 		oNumString[16 - i] = outputData.m256i_i16[2];
